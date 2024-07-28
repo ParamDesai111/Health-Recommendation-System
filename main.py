@@ -78,12 +78,28 @@ def home():
             predicted_disease = get_predicted_value(user_symptoms)
             dis_des, precautions, medications, rec_diet, workout = helping_function(predicted_disease)
 
+            # Process the medications properly
+            formatted_medications = []
+            for med in medications:
+                for ml in med.split(","):
+                    ml = ml.replace("[", "").replace("]", "").replace("'", "")
+                    formatted_medications.append(ml.strip())
+            
+            # Process diets for proper display
+            formatted_diets = []
+            for die in rec_diet:
+                for di in die.split(","):
+                    di = di.replace("[", "").replace("]", "").replace("'", "").strip()
+                    formatted_diets.append(di)
+
+
             my_precautions = []
             for i in precautions[0]:
                 my_precautions.append(i)
+            
 
             return render_template('index.html', predicted_disease=predicted_disease, dis_des=dis_des,
-                                   my_precautions=my_precautions, medications=medications, my_diet=rec_diet,
+                                   my_precautions=my_precautions, medications=formatted_medications, my_diet=formatted_diets,
                                    workout=workout)
 
     return render_template('index.html')
