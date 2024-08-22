@@ -4,7 +4,7 @@ import pickle
 import pandas as pd
 import os
 
-# Run Flask App
+# Run Flask App in app
 app = Flask(__name__)
 
 # Loading the model
